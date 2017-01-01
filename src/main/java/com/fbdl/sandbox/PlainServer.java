@@ -23,16 +23,19 @@ public class PlainServer {
         try {
             //load server private key
             KeyStore serverKeys = KeyStore.getInstance("JKS");
-            serverKeys.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\version2\\plainserver.jks"),"password".toCharArray());
+//            serverKeys.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\version2\\plainserver.jks"),"password".toCharArray());
+            serverKeys.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\server\\server.jks"),"123456".toCharArray());
             KeyManagerFactory serverKeyManager = KeyManagerFactory.getInstance("SunX509");
  
             //System.out.println(KeyManagerFactory.getDefaultAlgorithm());
             //System.out.println(serverKeyManager.getProvider());
-            serverKeyManager.init(serverKeys,"password".toCharArray());
+//            serverKeyManager.init(serverKeys,"password".toCharArray());
+            serverKeyManager.init(serverKeys,"123456".toCharArray());
  
             //load client public key
             KeyStore clientPub = KeyStore.getInstance("JKS");
-            clientPub.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\version2\\clientpub.jks"),"password".toCharArray());
+//            clientPub.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\version2\\clientpub.jks"),"password".toCharArray());
+            clientPub.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\server\\serverTrust.jks"),"123456".toCharArray());
             TrustManagerFactory trustManager = TrustManagerFactory.getInstance("SunX509");
             trustManager.init(clientPub);
  

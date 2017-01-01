@@ -50,7 +50,7 @@ public class HttpsClient {
             keystore.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\client\\clientKeyStore.jks"), "123456".toCharArray());
             
             KeyStore trustStore = KeyStore.getInstance("JKS");
-            keystore.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\client\\clientTrustStore.jks"), "123456".toCharArray());
+            trustStore.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\client\\clientTrustStore.jks"), "123456".toCharArray());
             
             //create the key manager for this client's key
             KeyManagerFactory keyManagerFactory = KeyManagerFactory.getInstance("SunX509");
@@ -59,7 +59,7 @@ public class HttpsClient {
             
             //create the trust manager for this client to trust
             TrustManagerFactory trustManagerFactory = TrustManagerFactory.getInstance("SunX509");
-            trustManagerFactory.init(keystore); //works when you use clientKeyStore
+            trustManagerFactory.init(trustStore);
             TrustManager[] tm = trustManagerFactory.getTrustManagers();
             
             //Initialize SSLContext

@@ -16,13 +16,16 @@ public class PlainClient {
         try {
             //load client private key
             KeyStore clientKeys = KeyStore.getInstance("JKS");
-            clientKeys.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\version2\\plainclient.jks"),"password".toCharArray());
+//            clientKeys.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\version2\\plainclient.jks"),"password".toCharArray());
+            clientKeys.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\client\\clientKeyStore.jks"),"123456".toCharArray());
             KeyManagerFactory clientKeyManager = KeyManagerFactory.getInstance("SunX509");
-            clientKeyManager.init(clientKeys,"password".toCharArray());
+//            clientKeyManager.init(clientKeys,"password".toCharArray());
+            clientKeyManager.init(clientKeys,"123456".toCharArray());
  
             //load server public key
             KeyStore serverPub = KeyStore.getInstance("JKS");
-            serverPub.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\version2\\serverpub.jks"),"password".toCharArray());
+//            serverPub.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\version2\\serverpub.jks"),"password".toCharArray());
+            serverPub.load(new FileInputStream("C:\\Users\\FBDL\\Desktop\\keys\\client\\clientTrustStore.jks"),"123456".toCharArray());
             TrustManagerFactory trustManager = TrustManagerFactory.getInstance("SunX509");
             trustManager.init(serverPub);
  
@@ -32,6 +35,10 @@ public class PlainClient {
             socket = (SSLSocket)ssl.getSocketFactory().createSocket("localhost", 8889);
             socket.startHandshake();
  
+            System.out.println("Client session details");
+            System.out.println("Protocol: " + socket.getSession().getProtocol());
+            System.out.println("Cipher: " + socket.getSession().getCipherSuite());
+            
             //receive data
             in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String data;
